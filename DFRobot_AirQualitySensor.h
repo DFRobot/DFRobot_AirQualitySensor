@@ -34,45 +34,45 @@
 /*
   DFR0460 主动上报协议
    * -----------------------------------------------------------------------------------------------------------
-   * | byte0  | byte1 |    byte2   +    byte3    |  byte4  +  byte5   |  byte6   +  byte7  | byte8 +
+   * | reg0  | reg1     |    reg2   |    reg3    |   reg4   |  reg5  +  reg6   |  reg7   +  reg8  | reg9 +
    * ----------------------------------------------------------------------------------------------------------
-   * |0x42(定)|0x46(定)|2x13+2(数据+校验位)（定） | PM1.0 浓度（H+L）  |      PM2.5 浓度    | PM10 
+   * |reserve |reserve |    reserve |   reserve  |  reserve | PM1.0 浓度（H+L）|   PM2.5 浓度     | PM10 
    * -----------------------------------------------------------------------------------------------------------
    * 
    * -----------------------------------------------------------------------------------------------------------
-   *  byte9  | byte10  +   byte11   |    byte12    +  byte13  |byte14   +  byte15 | byte16  + byte17     |
+   *  reg10  | reg11  +   reg12   |    reg13    +  reg14  |reg15   +  reg16 | reg17  + reg18     |
    * -----------------------------------------------------------------------------------------------------------
    *  浓度   |PM1.0 浓度（大气下）|  PM2.5 浓度（大气下）  | PM10 浓度（大气下） | 0.3um颗粒物个数/0.1L空气|
    * -----------------------------------------------------------------------------------------------------------
    * 
    * -----------------------------------------------------------------------------------------------------------
-   * |    byte18  + byte19    | byte20   +    byte21 |  byte22  +  byte23     |  byte24   +  byte25   | byte26 +
+   * |    reg19  + reg20    | reg21   +    reg22 |  reg23  +  reg24     |  reg25   +  reg26   | reg27 +
    * -----------------------------------------------------------------------------------------------------------
    * | 0.5um颗粒物个数/0.1L空气|1.0um颗粒物个数/0.1L空气 | 2.5um颗粒物个数/0.1L空气|5.0um颗粒物个数/0.1L空气| 
    * -----------------------------------------------------------------------------------------------------------
    * 
    * -----------------------------------------------------------------------------------------------------------
-   *         byte27         |   byte28  |  byte29   |  byte30   +   byte31 |  
+   *         reg28         |   reg29  | 
    * -----------------------------------------------------------------------------------------------------------
-   * 10um颗粒物个数/0.1L空气 |   版本号  | 错误代码  |  校验码（校验和）    |
+   * 10um颗粒物个数/0.1L空气 |   版本号  | 
    * -----------------------------------------------------------------------------------------------------------
 */
 
-#define PARTICLE_PM1_0_STANDARD   0X04
-#define PARTICLE_PM2_5_STANDARD   0X06
-#define PARTICLE_PM10_STANDARD    0X08
-#define PARTICLE_PM1_0_ATMOSPHERE 0X0A
-#define PARTICLE_PM2_5_ATMOSPHERE 0X0C
-#define PARTICLE_PM10_ATMOSPHERE  0X0E
+#define PARTICLE_PM1_0_STANDARD   0X05
+#define PARTICLE_PM2_5_STANDARD   0X07
+#define PARTICLE_PM10_STANDARD    0X09
+#define PARTICLE_PM1_0_ATMOSPHERE 0X0B
+#define PARTICLE_PM2_5_ATMOSPHERE 0X0D
+#define PARTICLE_PM10_ATMOSPHERE  0X0F
 
-#define PARTICLENUM_0_3_UM_EVERY0_1L_AIR 0X10
-#define PARTICLENUM_0_5_UM_EVERY0_1L_AIR 0X12
-#define PARTICLENUM_1_0_UM_EVERY0_1L_AIR 0X14
-#define PARTICLENUM_2_5_UM_EVERY0_1L_AIR 0X16
-#define PARTICLENUM_5_0_UM_EVERY0_1L_AIR 0X18
-#define PARTICLENUM_10_UM_EVERY0_1L_AIR  0X1A
+#define PARTICLENUM_0_3_UM_EVERY0_1L_AIR 0X11
+#define PARTICLENUM_0_5_UM_EVERY0_1L_AIR 0X13
+#define PARTICLENUM_1_0_UM_EVERY0_1L_AIR 0X15
+#define PARTICLENUM_2_5_UM_EVERY0_1L_AIR 0X17
+#define PARTICLENUM_5_0_UM_EVERY0_1L_AIR 0X19
+#define PARTICLENUM_10_UM_EVERY0_1L_AIR  0X1B
 
-#define PARTICLENUM_GAIN_VERSION 0X1C
+#define PARTICLENUM_GAIN_VERSION 0X1D
 
 class DFRobot_AirQualitySensor
 {
