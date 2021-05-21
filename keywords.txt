@@ -1,0 +1,20 @@
+#######################################
+# Syntax Coloring DFR0bot_AirQualitySensor
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+DFR0bot_AirQualitySensor_I2C            KEYWORD1
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+gainParticleConcentration_ugm3	KEYWORD2
+gainParticleNum_Every0_1L	KEYWORD2
+gainVersion	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
