@@ -1,4 +1,4 @@
-# DFR0bot_AirQualitySensor
+# DFRobot_AirQualitySensor
 DFRobot's Air Quality Sensor
 
 ## DFR0bot_AirQualitySensor Library for Arduino
@@ -65,7 +65,7 @@ FireBeetle-ESP8266|      √       |              |             |
 Mega2560  |      √       |             |            | 
 Arduino uno |       √      |             |            | 
 Leonardo  |      √       |              |             | 
-
+Micro:bit  |      √       |              |             | 
 
 
 

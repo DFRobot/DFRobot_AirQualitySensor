@@ -15,19 +15,36 @@ import time
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
 from dfrobot_airqualitysensor import *
 
-I2C_1       = 0x01               # I2C_1 Ê¹ÓÃi2c1½Ó¿ÚÇı¶¯´«¸ĞÆ÷£¬ ¿ÉÒÔµ÷ÕûÎªi2c0µ«ÊÇĞèÒªÅäÖÃÊ÷İ®ÅÉµÄÎÄ¼ş
-I2C_ADDRESS = 0x19               # I2C Éè±¸µÄµØÖ·£¬¿ÉÒÔ¸ü¸ÄA1¡¢A0À´¸ü»»µØÖ·£¬Ä¬ÈÏµØÖ·Îª0x54
+I2C_1       = 0x01               # I2C_1 ä½¿ç”¨i2c1æ¥å£é©±åŠ¨ä¼ æ„Ÿå™¨ï¼Œ å¯ä»¥è°ƒæ•´ä¸ºi2c0ä½†æ˜¯éœ€è¦é…ç½®æ ‘è“æ´¾çš„æ–‡ä»¶
+I2C_ADDRESS = 0x19               # I2C è®¾å¤‡çš„åœ°å€ï¼Œå¯ä»¥æ›´æ”¹A1ã€A0æ¥æ›´æ¢åœ°å€ï¼Œé»˜è®¤åœ°å€ä¸º0x54
 airqualitysensor = dfrobot_airqualitysensor_I2C(I2C_1 ,I2C_ADDRESS)
 
 def setup():
   time.sleep(1) 
+  #è·å–å›ºä»¶ç‰ˆæœ¬
   version = airqualitysensor.gain_version()
-  print "version is : " + str(version)
+  print ("version is : " + str(version))
   time.sleep(1) 
   
 def loop():
+  '''
+    è·å–ç©ºæ°”ä¸­é¢—ç²’ç‰©æµ“åº¦:å¯ä¾›é€‰æ‹©çš„å‚æ•°
+    PARTICLE_PM1_0_STANDARD   
+    PARTICLE_PM2_5_STANDARD  
+    PARTICLE_PM10_STANDARD  
+    PARTICLE_PM1_0_ATMOSPHERE 
+    PARTICLE_PM2_5_ATMOSPHERE
+    PARTICLE_PM10_ATMOSPHERE  
+    PARTICLENUM_0_3_UM_EVERY0_1L_AIR 
+    PARTICLENUM_0_5_UM_EVERY0_1L_AIR 
+    PARTICLENUM_1_0_UM_EVERY0_1L_AIR 
+    PARTICLENUM_2_5_UM_EVERY0_1L_AIR 
+    PARTICLENUM_5_0_UM_EVERY0_1L_AIR 
+    PARTICLENUM_10_UM_EVERY0_1L_AIR 
+    PARTICLENUM_GAIN_VERSION
+  '''
   concentration = airqualitysensor.gain_particle_concentration_ugm3(airqualitysensor.PARTICLE_PM1_0_STANDARD)
-  print "PM1.0 concentration:" + str(concentration) + " mg/m3"
+  print ("PM1.0 concentration:" + str(concentration) + " mg/m3")
   time.sleep(1) 
 
 if __name__ == "__main__":

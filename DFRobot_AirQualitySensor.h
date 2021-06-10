@@ -1,4 +1,6 @@
 /*!
+  * @file DFRobot_AirQualitySensor.h
+  * @brief 该传感器可以获取空气中相关颗粒物的浓度
   * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
   * @licence     The MIT License (MIT)
   * @author      PengKaixing(kaixing.peng@dfrobot.com)
@@ -15,7 +17,7 @@
 #include <Wire.h>
 
 // Open this macro to see the program running in detail
-#define ENABLE_DBG
+//#define ENABLE_DBG
 
 #ifdef ENABLE_DBG
 #define DBG(...)                     \
@@ -81,7 +83,7 @@ class DFRobot_AirQualitySensor
     ~DFRobot_AirQualitySensor(){};
 /*!
  *  @brief 获取指定颗粒物类型的浓度
- *  @param 颗粒物类型:PARTICLE_PM1_0_STANDARD  
+ *  @param type:PARTICLE_PM1_0_STANDARD  
                       PARTICLE_PM2_5_STANDARD  
                       PARTICLE_PM10_STANDARD   
                       PARTICLE_PM1_0_ATMOSPHERE
@@ -90,9 +92,9 @@ class DFRobot_AirQualitySensor
  *  @return 浓度（ug/m3）
  */
     uint16_t gainParticleConcentration_ugm3(uint8_t type);
-    /*!
+/*!
  *  @brief 获取在0.1升空气中的颗粒物的个数
- *  @param 颗粒物类型:PARTICLENUM_0_3_UM_EVERY0_1L_AIR
+ *  @param type:PARTICLENUM_0_3_UM_EVERY0_1L_AIR
                       PARTICLENUM_0_5_UM_EVERY0_1L_AIR
                       PARTICLENUM_1_0_UM_EVERY0_1L_AIR
                       PARTICLENUM_2_5_UM_EVERY0_1L_AIR
@@ -101,11 +103,10 @@ class DFRobot_AirQualitySensor
  *  @return 个数
  */
     uint16_t gainParticleNum_Every0_1L(uint8_t type);
-    /*!
+
+/*!
  *  @brief 向传感器的指定寄存器写入数据
- *  @param Reg ：需要写入的寄存器地址
- *         Data：等待写入寄存器的数据
- *         len ：等待写入的数据的长度
+ *  @param NULL
  *  @return 没有返回值
  */
     uint8_t gainVersion();
@@ -137,6 +138,12 @@ class DFRobot_AirQualitySensor_I2C : public DFRobot_AirQualitySensor
   public:
     DFRobot_AirQualitySensor_I2C(TwoWire *pWire = &Wire, uint8_t addr = 0x19);
     ~DFRobot_AirQualitySensor_I2C(){};
+/*!
+ *  @brief IIC初始化
+ *  @param NULL
+ *  @return true:成功
+ *          false：失败
+ */
     bool begin();
   protected:
     void writeReg(uint8_t Reg, void *Data, uint8_t len);

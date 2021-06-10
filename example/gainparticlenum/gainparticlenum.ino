@@ -1,5 +1,5 @@
 /*!
-  * @file gainconcentration.ino
+  * @file gainparticlenum.ino
   * @brief 获取此时每0.1升空气中颗粒物的个数
     @n i2c 地址选择，默认i2c地址为0x19 
   * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
