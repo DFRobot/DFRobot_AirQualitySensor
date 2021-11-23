@@ -1,14 +1,13 @@
 /*!
-  * @file DFRobot_AirQualitySensor.h
-  * @brief 该传感器可以获取空气中相关颗粒物的浓度
-  * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
-  * @licence     The MIT License (MIT)
-  * @author      PengKaixing(kaixing.peng@dfrobot.com)
-  * @version     V0.1
-  * @date        2021-05-20
-  * @get         from https://www.dfrobot.com
-  * @url         https://github.com/dfrobot/DFRobot_AirQualitySensor
-  */
+ * @file DFRobot_AirQualitySensor.h
+ * @brief 该传感器可以获取空气中相关颗粒物的浓度
+ * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
+ * @license     The MIT License (MIT)
+ * @author      PengKaixing(kaixing.peng@dfrobot.com)
+ * @version  V1.0
+ * @date  2020-11-23
+ * @url https://github.com/dfrobot/DFRobot_AirQualitySensor
+ */
 
 #ifndef __DFR0bot_AIR_H__
 #define __DFR0bot_AIR_H__
@@ -33,33 +32,6 @@
 #define DBG(...)
 #endif
 
-/*
-  DFR0460 主动上报协议
-   * -----------------------------------------------------------------------------------------------------------
-   * | reg0  | reg1     |    reg2   |    reg3    |   reg4   |  reg5  +  reg6   |  reg7   +  reg8  | reg9 +
-   * ----------------------------------------------------------------------------------------------------------
-   * |reserve |reserve |    reserve |   reserve  |  reserve | PM1.0 浓度（H+L）|   PM2.5 浓度     | PM10 
-   * -----------------------------------------------------------------------------------------------------------
-   * 
-   * -----------------------------------------------------------------------------------------------------------
-   *  reg10  | reg11  +   reg12   |    reg13    +  reg14  |reg15   +  reg16 | reg17  + reg18     |
-   * -----------------------------------------------------------------------------------------------------------
-   *  浓度   |PM1.0 浓度（大气下）|  PM2.5 浓度（大气下）  | PM10 浓度（大气下） | 0.3um颗粒物个数/0.1L空气|
-   * -----------------------------------------------------------------------------------------------------------
-   * 
-   * -----------------------------------------------------------------------------------------------------------
-   * |    reg19  + reg20    | reg21   +    reg22 |  reg23  +  reg24     |  reg25   +  reg26   | reg27 +
-   * -----------------------------------------------------------------------------------------------------------
-   * | 0.5um颗粒物个数/0.1L空气|1.0um颗粒物个数/0.1L空气 | 2.5um颗粒物个数/0.1L空气|5.0um颗粒物个数/0.1L空气| 
-   * -----------------------------------------------------------------------------------------------------------
-   * 
-   * -----------------------------------------------------------------------------------------------------------
-   *         reg28         |   reg29  | 
-   * -----------------------------------------------------------------------------------------------------------
-   * 10um颗粒物个数/0.1L空气 |   版本号  | 
-   * -----------------------------------------------------------------------------------------------------------
-*/
-
 #define PARTICLE_PM1_0_STANDARD   0X05
 #define PARTICLE_PM2_5_STANDARD   0X07
 #define PARTICLE_PM10_STANDARD    0X09
@@ -79,79 +51,91 @@
 class DFRobot_AirQualitySensor
 {
   public:
-    DFRobot_AirQualitySensor(){};
-    ~DFRobot_AirQualitySensor(){};
-/*!
- *  @brief 获取指定颗粒物类型的浓度
- *  @param type:PARTICLE_PM1_0_STANDARD  
-                      PARTICLE_PM2_5_STANDARD  
-                      PARTICLE_PM10_STANDARD   
-                      PARTICLE_PM1_0_ATMOSPHERE
-                      PARTICLE_PM2_5_ATMOSPHERE
-                      PARTICLE_PM10_ATMOSPHERE 
- *  @return 浓度（ug/m3）
- */
+    DFRobot_AirQualitySensor(TwoWire *pWire = &Wire, uint8_t addr = 0x19);
+    ~DFRobot_AirQualitySensor(void){};
+    /**
+     * @fn begin
+     * @brief 初始化
+     * @return bool类型，表示初始化是否成功
+     * @retval True 成功
+     * @retval False 失败
+     */
+    bool begin(void);
+
+    /**
+     * @fn gainParticleConcentration_ugm3
+     * @brief 获取指定颗粒物类型的浓度
+     * @param type:设置需要输出的颗粒物的类型
+     * @n          PARTICLE_PM1_0_STANDARD
+     * @n          PARTICLE_PM2_5_STANDARD
+     * @n          PARTICLE_PM10_STANDARD
+     * @n          PARTICLE_PM1_0_ATMOSPHERE
+     * @n          PARTICLE_PM2_5_ATMOSPHERE
+     * @n          PARTICLE_PM10_ATMOSPHERE
+     * @return uint16_t类型，表示返回指定颗粒物类型的浓度
+     */
     uint16_t gainParticleConcentration_ugm3(uint8_t type);
-/*!
- *  @brief 获取在0.1升空气中的颗粒物的个数
- *  @param type:PARTICLENUM_0_3_UM_EVERY0_1L_AIR
-                      PARTICLENUM_0_5_UM_EVERY0_1L_AIR
-                      PARTICLENUM_1_0_UM_EVERY0_1L_AIR
-                      PARTICLENUM_2_5_UM_EVERY0_1L_AIR
-                      PARTICLENUM_5_0_UM_EVERY0_1L_AIR
-                      PARTICLENUM_10_UM_EVERY0_1L_AIR 
- *  @return 个数
- */
+
+    /**
+     * @fn gainParticleNum_Every0_1L
+     * @brief 获取在0.1升空气中的颗粒物的个数
+     * @param type:设置需要输出的颗粒物的类型
+     * @n          PARTICLENUM_0_3_UM_EVERY0_1L_AIR
+     * @n          PARTICLENUM_0_5_UM_EVERY0_1L_AIR
+     * @n          PARTICLENUM_1_0_UM_EVERY0_1L_AIR
+     * @n          PARTICLENUM_2_5_UM_EVERY0_1L_AIR
+     * @n          PARTICLENUM_5_0_UM_EVERY0_1L_AIR
+     * @n          PARTICLENUM_10_UM_EVERY0_1L_AIR
+     * @return uint16_t类型，每0.1升气体中的颗粒物的个数
+     */
     uint16_t gainParticleNum_Every0_1L(uint8_t type);
 
-/*!
- *  @brief 向传感器的指定寄存器写入数据
- *  @param NULL
- *  @return 没有返回值
- */
-    uint8_t gainVersion();
+    /**
+     * @fn gainVersion
+     * @brief 获取固件版本
+     * @return uint8_t类型，固件版本
+     */
+    uint8_t gainVersion(void);
+
+    /**
+     * @fn setLowpower
+     * @brief 控制传感器进入低功耗模式
+     */
+    void setLowpower(void);
+
+    /**
+     * @fn awake
+     * @brief 控制传感器唤醒
+     */
+    void awake(void);
+
   protected:
-/*!
- *  @brief 向传感器的指定寄存器写入数据
- *  @param Reg ：需要写入的寄存器地址
- *         Data：等待写入寄存器的数据
- *         len ：等待写入的数据的长度
- *  @return 没有返回值
- */
-    virtual void writeReg(uint8_t Reg, void *Data, uint8_t len) = 0;
-
-/*!
- *  @brief 从指定传感器中获取指定长度的数据
- *  @param INITIATIVE：传感器主动上报
- *         PASSIVITY ：主控发送请求，传感器才能上报数据
- *  @return status  ：init status
- *          true is ：init success
- *          false is：init error
- */
-    virtual int16_t readReg(uint8_t Reg, uint8_t *Data, uint8_t len) = 0;
-
-  private:
-};
-
-class DFRobot_AirQualitySensor_I2C : public DFRobot_AirQualitySensor
-{
-  public:
-    DFRobot_AirQualitySensor_I2C(TwoWire *pWire = &Wire, uint8_t addr = 0x19);
-    ~DFRobot_AirQualitySensor_I2C(){};
-/*!
- *  @brief IIC初始化
- *  @param NULL
- *  @return true:成功
- *          false：失败
- */
-    bool begin();
-  protected:
+    /**
+     * @fn writeReg
+     * @brief 向传感器的指定寄存器写入数据
+     * @param 需要写入的寄存器地址
+     * @n     Reg ：寄存器地址
+     * @param 等待写入寄存器的数据
+     * @n     Data：寄存器的数据指针
+     * @param 等待写入的数据的长度
+     * @n     len ：数据的长度
+     */
     void writeReg(uint8_t Reg, void *Data, uint8_t len);
+
+    /**
+     * @fn readReg
+     * @brief 从传感器的指定寄存器读取数据
+     * @param 需要读取的寄存器地址
+     * @n     Reg ：寄存器地址
+     * @param 等待读取寄存器的数据
+     * @n     Data：寄存器的数据指针
+     * @param 等待读取的数据的长度
+     * @n     len ：数据的长度
+     */
     int16_t readReg(uint8_t Reg, uint8_t *Data, uint8_t len);
 
   private:
     TwoWire *_pWire;
     uint8_t _I2C_addr;
 };
-
 #endif

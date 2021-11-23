@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*
 '''!
-  @file gainconcentration.py
-  @brief 该传感器可以获取空气中相关颗粒物的浓度
+  @file lowPower.py
+  @brief 周期性打开或者关闭传感器
   @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
   @license     The MIT License (MIT)
   @author      PengKaixing(kaixing.peng@dfrobot.com)
@@ -28,25 +28,10 @@ def setup():
   time.sleep(1) 
   
 def loop():
-  '''
-    @brief 获取空气中颗粒物浓度:可供选择的参数
-    @n     PARTICLE_PM1_0_STANDARD   
-    @n     PARTICLE_PM2_5_STANDARD  
-    @n     PARTICLE_PM10_STANDARD  
-    @n     PARTICLE_PM1_0_ATMOSPHERE 
-    @n     PARTICLE_PM2_5_ATMOSPHERE
-    @n     PARTICLE_PM10_ATMOSPHERE  
-    @n     PARTICLENUM_0_3_UM_EVERY0_1L_AIR 
-    @n     PARTICLENUM_0_5_UM_EVERY0_1L_AIR 
-    @n     PARTICLENUM_1_0_UM_EVERY0_1L_AIR 
-    @n     PARTICLENUM_2_5_UM_EVERY0_1L_AIR 
-    @n     PARTICLENUM_5_0_UM_EVERY0_1L_AIR 
-    @n     PARTICLENUM_10_UM_EVERY0_1L_AIR 
-    @n     PARTICLENUM_GAIN_VERSION
-  '''
-  num = airqualitysensor.gain_particlenum_every0_1l(airqualitysensor.PARTICLENUM_0_3_UM_EVERY0_1L_AIR)
-  print ("The number of particles with a diameter of 0.3um per 0.1 in lift-off is:" + str(num))
-  time.sleep(1) 
+  airqualitysensor.set_lowpower()
+  time.sleep(5) 
+  airqualitysensor.awake()
+  time.sleep(5) 
 
 if __name__ == "__main__":
   setup()

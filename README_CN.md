@@ -1,5 +1,5 @@
 # DFRobot_AirQualitySensor
-- [中文版](./README_CN.md)
+- [English Version](./README.md)
 
 ## DFR0bot_AirQualitySensor Library for Arduino
 ---------------------------------------------------------

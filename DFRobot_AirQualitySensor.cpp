@@ -1,4 +1,30 @@
+/*!
+ * @file DFRobot_AirQualitySensor.cpp
+ * @brief 该传感器可以获取空气中相关颗粒物的浓度
+ * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
+ * @license     The MIT License (MIT)
+ * @author      PengKaixing(kaixing.peng@dfrobot.com)
+ * @version  V1.0
+ * @date  2020-11-23
+ * @url https://github.com/dfrobot/DFRobot_AirQualitySensor
+ */
 #include "DFRobot_AirQualitySensor.h"
+
+DFRobot_AirQualitySensor::DFRobot_AirQualitySensor(TwoWire *pWire, uint8_t addr)
+{
+  _pWire = pWire;
+  this->_I2C_addr = addr;
+}
+
+bool DFRobot_AirQualitySensor::begin(void)
+{
+  _pWire->begin();
+  _pWire->beginTransmission(_I2C_addr);
+  if (_pWire->endTransmission() == 0)
+    return true;
+  else
+    return false;
+}
 
 uint16_t DFRobot_AirQualitySensor::gainParticleConcentration_ugm3(uint8_t type)
 {
@@ -16,35 +42,26 @@ uint16_t DFRobot_AirQualitySensor::gainParticleNum_Every0_1L(uint8_t type)
   return particlenum;
 }
 
-uint8_t DFRobot_AirQualitySensor::gainVersion()
+uint8_t DFRobot_AirQualitySensor::gainVersion(void)
 {
   uint8_t version = 0 ;
   readReg(PARTICLENUM_GAIN_VERSION, &version, 1);
   return version;
 }
 
-//IIC底层通信
-DFRobot_AirQualitySensor_I2C::DFRobot_AirQualitySensor_I2C(TwoWire *pWire, uint8_t addr)
+void DFRobot_AirQualitySensor::setLowpower(void)
 {
-  _pWire = pWire;
-  this->_I2C_addr = addr;
+  uint8_t mode = 1;
+  writeReg(0x01, &mode, 1);
 }
 
-bool DFRobot_AirQualitySensor_I2C::begin()
+void DFRobot_AirQualitySensor::awake(void)
 {
-  _pWire->begin();
-  _pWire->beginTransmission(_I2C_addr);
-  if (_pWire->endTransmission() == 0)
-  {
-    return true;
-  }
-  else
-  {
-    return false;
-  }
+  uint8_t mode = 2;
+  writeReg(0x01, &mode, 1);
 }
 
-void DFRobot_AirQualitySensor_I2C::writeReg(uint8_t Reg, void *pData, uint8_t len)
+void DFRobot_AirQualitySensor::writeReg(uint8_t Reg, void *pData, uint8_t len)
 {
   uint8_t *Data = (uint8_t *)pData;
   _pWire->beginTransmission(this->_I2C_addr);
@@ -56,7 +73,7 @@ void DFRobot_AirQualitySensor_I2C::writeReg(uint8_t Reg, void *pData, uint8_t le
   _pWire->endTransmission();
 }
 
-int16_t DFRobot_AirQualitySensor_I2C::readReg(uint8_t Reg, uint8_t *Data, uint8_t len)
+int16_t DFRobot_AirQualitySensor::readReg(uint8_t Reg, uint8_t *Data, uint8_t len)
 {
   int i = 0;
   _pWire->beginTransmission(this->_I2C_addr);
