@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*
 '''!
   @file DFRobot_AirQualitySensor.py
-  @brief 该传感器可以获取空气中相关颗粒物的浓度
+  @brief The sensor can obtain PM concentration in the air.
   @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
   @license     The MIT License (MIT)
   @author      PengKaixing(kaixing.peng@dfrobot.com)
-  @version  V1.0
+  @version  V1.0.0
   @date  2021-11-23
   @url https://github.com/dfrobot/DFRobot_AirQualitySensor
 '''
@@ -17,7 +17,7 @@ import math
 import RPi.GPIO as GPIO
 
 class DFRobot_AirQualitySensor(object):
-  #选择颗粒物的类型
+  #Select PM type
   PARTICLE_PM1_0_STANDARD   = 0X05
   PARTICLE_PM2_5_STANDARD   = 0X07
   PARTICLE_PM10_STANDARD    = 0X09
@@ -40,14 +40,14 @@ class DFRobot_AirQualitySensor(object):
       
   def gain_particle_concentration_ugm3(self,PMtype):
     '''!
-      @brief 获取指定颗粒物类型的浓度
+      @brief Get PM concentration of a specified type
       @param type PARTICLE_PM1_0_STANDARD
       @n          PARTICLE_PM2_5_STANDARD  
       @n          PARTICLE_PM10_STANDARD   
       @n          PARTICLE_PM1_0_ATMOSPHERE
       @n          PARTICLE_PM2_5_ATMOSPHERE
       @n          PARTICLE_PM10_ATMOSPHERE 
-      @return 浓度（ug/m3）
+      @return Concentration（ug/m3）
     '''
     buf = self.read_reg(PMtype,2)
     concentration = (buf[0] << 8) + buf[1]
@@ -55,14 +55,14 @@ class DFRobot_AirQualitySensor(object):
 
   def gain_particlenum_every0_1l(self,PMtype):
     '''!
-      @brief 获取在0.1升空气中的颗粒物的个数
+      @brief Get the number of PM in 0.1L of air
       @param type PARTICLENUM_0_3_UM_EVERY0_1L_AIR
       @n          PARTICLENUM_0_5_UM_EVERY0_1L_AIR
       @n          PARTICLENUM_1_0_UM_EVERY0_1L_AIR
       @n          PARTICLENUM_2_5_UM_EVERY0_1L_AIR
       @n          PARTICLENUM_5_0_UM_EVERY0_1L_AIR
       @n          PARTICLENUM_10_UM_EVERY0_1L_AIR 
-      @return 颗粒物个数
+      @return PM number
     '''
     buf = self.read_reg(PMtype,2)
     particlenum = (buf[0] << 8) + buf[1]
@@ -70,22 +70,22 @@ class DFRobot_AirQualitySensor(object):
 
   def gain_version(self):
     '''!
-      @brief 向传感器的指定寄存器写入数据
-      @return 固件版本
+      @brief Write data to the specified register of the sensor
+      @return Firmware version
     '''
     version = self.read_reg(self.PARTICLENUM_GAIN_VERSION,1)
     return version[0]
 
   def set_lowpower(self):
     '''
-      @brief 控制传感器进入低功耗模式
+      @brief Control the sensor to enter low-power mode
     '''
     mode = [0x01]
     self.write_reg(0x01,mode)
 
   def awake(self):
     '''
-      @brief 控制传感器唤醒
+      @brief Wake up sensor
     '''
     mode = [0x02]
     self.write_reg(0x01,mode)
@@ -108,7 +108,7 @@ class DFRobot_AirQualitySensor(object):
 
   def read_reg(self, reg ,len):
     '''
-      @brief read the data from the register
+      @brief Read the data from the register
       @param reg register address
       @param data read data
     '''

@@ -1,10 +1,10 @@
 /*!
  * @file DFRobot_AirQualitySensor.cpp
- * @brief 该传感器可以获取空气中相关颗粒物的浓度
+ * @brief The sensor can obtain concentration of some PM in the air.
  * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @license     The MIT License (MIT)
  * @author      PengKaixing(kaixing.peng@dfrobot.com)
- * @version  V1.0
+ * @version  V1.0.0
  * @date  2020-11-23
  * @url https://github.com/dfrobot/DFRobot_AirQualitySensor
  */

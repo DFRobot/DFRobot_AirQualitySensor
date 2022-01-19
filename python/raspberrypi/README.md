@@ -1,13 +1,14 @@
 # DFRobot_AirQualitySensor
-- [中文版](./README.md)
 
-## DFR0bot_AirQualitySensor Library for Arduino
----------------------------------------------------------
-空气质量传感器，用来获取空气中颗粒物的浓度，进而判断此时环境中的空气质量
-![正反面svg效果图](./resources/images/SEN0460svg1.png)
+- [中文版](./README_CN.md)
 
-## Product Link（链接到中文商城）
-SKU：SEN0460
+Based on the principle of laser scattering, the PM2.5 air quality sensor employs a digital universal particle sensor that can continuously collect and calculate the number of suspended particles of different sizes in the air per unit volume, which is particle concentration distribution, and then convert it to quality concentration and output data via I2C interface. The sensor can be embedded in various instruments and meters or environmental improvement equipment related to the concentration of suspended particulate matter in the air to provide timely and accurate concentration data.
+
+![正反面svg效果图](../../resources/images/SEN0460.png)
+
+## Product Link（[https://www.dfrobot.com/product-2439.html](https://www.dfrobot.com/product-2439.html)）
+
+  SKU：SEN0460
 
 ## Table of Contents
 
@@ -19,51 +20,52 @@ SKU：SEN0460
 
 ## Summary
 
-这是一个用于复杂环境中检测空气中颗粒物浓度的传感器，检具低功耗
+This library provides routines to get the size of specified particles in the air output as percentage or number.
 
 ## Installation
 
-To use this library download the zip file, uncompress it to a folder named DFRobot_AirQualitySensor.
-Download the zip file first to use this library and uncompress it to a folder named DFRobot_AirQualitySensor.
+Download the library to Raspberry Pi before use, then open the routine folder. Input python gainconcentration.py into the command line to execute a routine gainconcentration.py.
 
 ## Methods
+
+```python
     '''!
-      @brief 获取指定颗粒物类型的浓度
+      @brief Get concentration of specified type of PM
       @param type PARTICLE_PM1_0_STANDARD
       @n          PARTICLE_PM2_5_STANDARD  
       @n          PARTICLE_PM10_STANDARD   
       @n          PARTICLE_PM1_0_ATMOSPHERE
       @n          PARTICLE_PM2_5_ATMOSPHERE
       @n          PARTICLE_PM10_ATMOSPHERE 
-      @return 浓度（ug/m3）
+      @return Concentration（ug/m3）
     '''
     def gain_particle_concentration_ugm3(self,PMtype):
 
     '''!
-      @brief 获取在0.1升空气中的颗粒物的个数
+      @brief Get the number of PM in 0.1L of air
       @param type PARTICLENUM_0_3_UM_EVERY0_1L_AIR
       @n          PARTICLENUM_0_5_UM_EVERY0_1L_AIR
       @n          PARTICLENUM_1_0_UM_EVERY0_1L_AIR
       @n          PARTICLENUM_2_5_UM_EVERY0_1L_AIR
       @n          PARTICLENUM_5_0_UM_EVERY0_1L_AIR
       @n          PARTICLENUM_10_UM_EVERY0_1L_AIR 
-      @return 颗粒物个数
+      @return PM number
     '''
     def gain_particlenum_every0_1l(self,PMtype):
 
     '''!
-      @brief 向传感器的指定寄存器写入数据
-      @return 固件版本
+      @brief Write data to the specified register of the sensor
+      @return Firmware version
     '''
     def gain_version(self):
 
     '''
-      @brief 控制传感器进入低功耗模式
+      @brief Control the sensor to enter low-power mode
     '''
     def set_lowpower(self):
 
     '''
-      @brief 控制传感器唤醒
+      @brief Control sensor awaking
     '''
     def awake(self):
 
@@ -80,14 +82,26 @@ Download the zip file first to use this library and uncompress it to a folder na
       @param data read data
     '''
     def read_reg(self, reg ,len):
+``` 
+
 ## Compatibility
-MCU                | Work Well | Work Wrong | Untested  | Remarks
------------------- | :----------: | :----------: | :---------: | -----
-raspberry  |      √       |             |            | 
+
+| MCU         | Work Well | Work Wrong | Untested | Remarks |
+| ------------ | :--: | :----: | :----: | :--: |
+| RaspberryPi2 |      |        |   √    |      |
+| RaspberryPi3 |      |        |   √    |      |
+| RaspberryPi4 |  √   |        |        |      |
+
+* Python version
+
+| Python  | Work Well | Work Wrong | Untested | Remarks |
+| ------- | :--: | :----: | :----: | ---- |
+| Python2 |  √   |        |        |      |
+| Python3 |  √   |        |        |      |
+
 ## History
 
-- 23,11, 2021 - Version 1.0 released.
-
+- 2021/11/23 - 1.0.0 version
 
 ## Credits
 

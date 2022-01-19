@@ -1,10 +1,10 @@
 /*!
  * @file gainConcentration.ino
- * @brief 获取此时空气中颗粒物的浓度
+ * @brief Get the current concentration of PM in the air
  * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @license     The MIT License (MIT)
  * @author      PengKaixing(kaixing.peng@dfrobot.com)
- * @version  V1.0
+ * @version  V1.0.0
  * @date  2021-11-23
  * @url https://github.com/dfrobot/DFRobot_AirQualitySensor
  */
@@ -16,7 +16,7 @@
 void setup(){
   Serial.begin(115200);
 
-  //传感器初始化，用作初始化IIC，由此时使用的通信方式来决定
+  //Sensor init, initialize I2C, determined by the communication method currently used
   while(!particle.begin()){
     Serial.println("NO Deivces !");
     delay(1000);
@@ -24,7 +24,7 @@ void setup(){
   Serial.println("sensor begin success!");
   delay(1000);
 
-  //获取传感器版本号
+  //Get sensor version number
   uint8_t version = particle.gainVersion();
   Serial.print("version is : ");
   Serial.println(version);
@@ -33,7 +33,7 @@ void setup(){
 
 void loop() {
   /**
-   *@brief  获取PM1.0浓度
+   *@brief  Get PM1.0 concentration
    *@param  PARTICLE_PM1_0_STANDARD   
    *@n      PARTICLE_PM2_5_STANDARD   
    *@n      PARTICLE_PM10_STANDARD    

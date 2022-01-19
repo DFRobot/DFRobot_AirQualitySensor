@@ -1,88 +1,93 @@
 # DFRobot_AirQualitySensor
+
 - [English Version](./README.md)
 
-## DFR0bot_AirQualitySensor Library for Arduino
----------------------------------------------------------
-空气质量传感器，用来获取空气中颗粒物的浓度，进而判断此时环境中的空气质量
-![正反面svg效果图](./resources/images/SEN0460svg1.png)
+PM2.5空气质量传感器采用的是一款基于激光散射原理的数字式通用颗粒物传感器，可连续采集并计算单位体积内空气中不同粒径的悬浮颗粒物个数，即颗粒物浓度分布，进而换算成为质量浓度，并利用I2C接口输出相关数据。本传感器可嵌入各种与空气中悬浮颗粒物浓度相关的仪器仪表或环境改善设备，为其提供及时准确的浓度数据。
 
-## Product Link（链接到中文商城）
-SKU：SEN0460
+![正反面svg效果图](./resources/images/SEN0460.png)
 
-## Table of Contents
+## 产品链接（[https://www.dfrobot.com.cn/goods-3355.html](https://www.dfrobot.com.cn/goods-3355.html)）
 
-* [Installation](#installation)
-* [Methods](#methods)
-* [Compatibility](#compatibility)
-* [History](#history)
-* [Credits](#credits)
+    SKU：SEN0460
 
-## Summary
+## 目录
 
-这是一个用于复杂环境中检测空气中颗粒物浓度的传感器，检具低功耗
+* [概述](#概述)
+* [库安装](#库安装)
+* [方法](#方法)
+* [兼容性](#兼容性y)
+* [历史](#历史)
+* [创作者](#创作者)
 
-## Installation
+## 概述
 
-To use this library download the zip file, uncompress it to a folder named DFRobot_AirQualitySensor.
-Download the zip file first to use this library and uncompress it to a folder named DFRobot_AirQualitySensor.
+这个库提供了获取空气中指定颗粒物大小以百分比或者以个数输出的例程
 
-## Methods
-    /**
-     * @fn begin
-     * @brief 初始化
-     * @return bool类型，表示初始化是否成功
-     * @retval True 成功
-     * @retval False 失败
-     */
-    bool begin(void);
+## 库安装
 
-    /**
-     * @fn gainParticleConcentration_ugm3
-     * @brief 获取指定颗粒物类型的浓度
-     * @param type:设置需要输出的颗粒物的类型
-     * @n          PARTICLE_PM1_0_STANDARD
-     * @n          PARTICLE_PM2_5_STANDARD
-     * @n          PARTICLE_PM10_STANDARD
-     * @n          PARTICLE_PM1_0_ATMOSPHERE
-     * @n          PARTICLE_PM2_5_ATMOSPHERE
-     * @n          PARTICLE_PM10_ATMOSPHERE
-     * @return uint16_t类型，表示返回指定颗粒物类型的浓度
-     */
-    uint16_t gainParticleConcentration_ugm3(uint8_t type);
+使用此库前，请首先下载库文件，将其粘贴到\Arduino\libraries目录中，然后打开examples文件夹并在该文件夹中运行演示。
 
-    /**
-     * @fn gainParticleNum_Every0_1L
-     * @brief 获取在0.1升空气中的颗粒物的个数
-     * @param type:设置需要输出的颗粒物的类型
-     * @n          PARTICLENUM_0_3_UM_EVERY0_1L_AIR
-     * @n          PARTICLENUM_0_5_UM_EVERY0_1L_AIR
-     * @n          PARTICLENUM_1_0_UM_EVERY0_1L_AIR
-     * @n          PARTICLENUM_2_5_UM_EVERY0_1L_AIR
-     * @n          PARTICLENUM_5_0_UM_EVERY0_1L_AIR
-     * @n          PARTICLENUM_10_UM_EVERY0_1L_AIR
-     * @return uint16_t类型，每0.1升气体中的颗粒物的个数
-     */
-    uint16_t gainParticleNum_Every0_1L(uint8_t type);
+## 方法
 
-    /**
-     * @fn gainVersion
-     * @brief 获取固件版本
-     * @return uint8_t类型，固件版本
-     */
-    uint8_t gainVersion(void);
+```C++
+   /**
+    * @fn begin
+    * @brief 初始化
+    * @return bool类型，表示初始化是否成功
+    * @retval True 成功
+    * @retval False 失败
+    */
+   bool begin(void);     
 
-    /**
-     * @fn setLowpower
-     * @brief 控制传感器进入低功耗模式
-     */
-    void setLowpower(void);
+   /**
+    * @fn gainParticleConcentration_ugm3
+    * @brief 获取指定颗粒物类型的浓度
+    * @param type:设置需要输出的颗粒物的类型
+    * @n          PARTICLE_PM1_0_STANDARD
+    * @n          PARTICLE_PM2_5_STANDARD
+    * @n          PARTICLE_PM10_STANDARD
+    * @n          PARTICLE_PM1_0_ATMOSPHERE
+    * @n          PARTICLE_PM2_5_ATMOSPHERE
+    * @n          PARTICLE_PM10_ATMOSPHERE
+    * @return uint16_t类型，表示返回指定颗粒物类型的浓度
+    */
+   uint16_t gainParticleConcentration_ugm3(uint8_t type);  
 
-    /**
-     * @fn awake
-     * @brief 控制传感器唤醒
-     */
-    void awake(void);
-## Compatibility
+   /**
+    * @fn gainParticleNum_Every0_1L
+    * @brief 获取在0.1升空气中的颗粒物的个数
+    * @param type:设置需要输出的颗粒物的类型
+    * @n          PARTICLENUM_0_3_UM_EVERY0_1L_AIR
+    * @n          PARTICLENUM_0_5_UM_EVERY0_1L_AIR
+    * @n          PARTICLENUM_1_0_UM_EVERY0_1L_AIR
+    * @n          PARTICLENUM_2_5_UM_EVERY0_1L_AIR
+    * @n          PARTICLENUM_5_0_UM_EVERY0_1L_AIR
+    * @n          PARTICLENUM_10_UM_EVERY0_1L_AIR
+    * @return uint16_t类型，每0.1升气体中的颗粒物的个数
+    */
+   uint16_t gainParticleNum_Every0_1L(uint8_t type);    
+
+   /**
+    * @fn gainVersion
+    * @brief 获取固件版本
+    * @return uint8_t类型，固件版本
+    */
+   uint8_t gainVersion(void);      
+
+   /**
+    * @fn setLowpower
+    * @brief 控制传感器进入低功耗模式
+    */
+   void setLowpower(void);      
+
+   /**
+    * @fn awake
+    * @brief 控制传感器唤醒
+    */
+   void awake(void);
+``` 
+
+## 兼容性
 
 MCU                | Work Well | Work Wrong | Untested  | Remarks
 ------------------ | :----------: | :----------: | :---------: | -----
@@ -93,13 +98,10 @@ Arduino uno |       √      |             |            |
 Leonardo  |      √       |              |             | 
 Micro:bit  |      √       |              |             | 
 
+## 历史
 
+- 2021/11/23 - 1.0.0 版本
 
-## History
-
-- 23,11, 2021 - Version 1.0 released.
-
-
-## Credits
+## 创作者
 
 Written by PengKaixing(kaixing.peng@dfrobot.com), 2021. (Welcome to our [website](https://www.dfrobot.com/))

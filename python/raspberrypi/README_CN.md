@@ -1,32 +1,35 @@
 # DFRobot_AirQualitySensor
+
 - [English Version](./README.md)
 
-## DFR0bot_AirQualitySensor Library for Arduino
----------------------------------------------------------
-空气质量传感器，用来获取空气中颗粒物的浓度，进而判断此时环境中的空气质量
-![正反面svg效果图](./resources/images/SEN0460svg1.png)
+PM2.5空气质量传感器采用的是一款基于激光散射原理的数字式通用颗粒物传感器，可连续采集并计算单位体积内空气中不同粒径的悬浮颗粒物个数，即颗粒物浓度分布，进而换算成为质量浓度，并利用I2C接口输出相关数据。本传感器可嵌入各种与空气中悬浮颗粒物浓度相关的仪器仪表或环境改善设备，为其提供及时准确的浓度数据。
 
-## Product Link（链接到中文商城）
-SKU：SEN0460
+![正反面svg效果图](../../resources/images/SEN0460.png)
 
-## Table of Contents
+## 产品链接（[https://www.dfrobot.com.cn/goods-3355.html](https://www.dfrobot.com.cn/goods-3355.html)）
 
-* [Installation](#installation)
-* [Methods](#methods)
-* [Compatibility](#compatibility)
-* [History](#history)
-* [Credits](#credits)
+  SKU：SEN0460
 
-## Summary
+## 目录
 
-这是一个用于复杂环境中检测空气中颗粒物浓度的传感器，检具低功耗
+* [概述](#概述)
+* [库安装](#库安装)
+* [方法](#方法)
+* [兼容性](#兼容性y)
+* [历史](#历史)
+* [创作者](#创作者)
 
-## Installation
+## 概述
 
-To use this library download the zip file, uncompress it to a folder named DFRobot_AirQualitySensor.
-Download the zip file first to use this library and uncompress it to a folder named DFRobot_AirQualitySensor.
+这个库提供了获取空气中指定颗粒物大小以百分比或者以个数输出的例程
 
-## Methods
+## 库安装
+
+要使用这个库，首先将库下载到Raspberry Pi，然后打开例程文件夹。要执行一个例程gainconcentration.py，请在命令行中输入python gainconcentration.py。
+
+## 方法
+
+```python
     '''!
       @brief 获取指定颗粒物类型的浓度
       @param type PARTICLE_PM1_0_STANDARD
@@ -80,15 +83,27 @@ Download the zip file first to use this library and uncompress it to a folder na
       @param data read data
     '''
     def read_reg(self, reg ,len):
-## Compatibility
-MCU                | Work Well | Work Wrong | Untested  | Remarks
------------------- | :----------: | :----------: | :---------: | -----
-raspberry  |      √       |             |            | 
-## History
+``` 
 
-- 23,11, 2021 - Version 1.0 released.
+## 兼容性
 
+| 主板         | 通过 | 未通过 | 未测试 | 备注 |
+| ------------ | :--: | :----: | :----: | :--: |
+| RaspberryPi2 |      |        |   √    |      |
+| RaspberryPi3 |      |        |   √    |      |
+| RaspberryPi4 |  √   |        |        |      |
 
-## Credits
+* Python 版本
+
+| Python  | 通过 | 未通过 | 未测试 | 备注 |
+| ------- | :--: | :----: | :----: | ---- |
+| Python2 |  √   |        |        |      |
+| Python3 |  √   |        |        |      |
+
+## 历史
+
+- 2021/11/23 - 1.0.0 版本
+
+## 创作者
 
 Written by PengKaixing(kaixing.peng@dfrobot.com), 2021. (Welcome to our [website](https://www.dfrobot.com/))
